@@ -1,4 +1,4 @@
-package gcanadas.com.myplanner;
+package gcanadas.com.myplanner.activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -35,6 +35,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import gcanadas.com.myplanner.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -309,6 +311,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
+    private void updateSessionData(String username) {
+        mPrefs.edit().putBoolean("loggedIn", true).apply();
+        mPrefs.edit().putString("username", username).apply();
+    }
+
+    private void removeSessionData() {
+        mPrefs.edit().putBoolean("loggedIn", true).apply();
+        mPrefs.edit().remove("username").apply();
+    }
+
     /**
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
@@ -354,7 +366,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                mPrefs.edit().putBoolean("loggedIn", true).apply();
+
                 goToMainActivity(mContext);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

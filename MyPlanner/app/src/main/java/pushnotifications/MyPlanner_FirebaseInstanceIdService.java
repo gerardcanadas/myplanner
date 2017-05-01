@@ -1,5 +1,7 @@
 package pushnotifications;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -26,6 +28,7 @@ public class MyPlanner_FirebaseInstanceIdService extends FirebaseInstanceIdServi
     }
 
     public void sendRegistrationToServer(String refreshedToken) {
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String username = prefs.getString("username", "");
     }
 }
