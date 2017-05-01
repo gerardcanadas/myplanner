@@ -1,0 +1,20 @@
+package gcanadas.com.myplanner.models.protobuf;
+
+option java_package = "gcanadas.com.myplanner";
+option java_outer_classname = "UserDeviceProtos";
+
+message User {
+    required int32 id = 1;
+    required string username = 2;
+}
+
+message Device {
+    required int32 id = 1;
+    required string deviceId = 2;
+    optional bool active = 3 [default = true];
+}
+
+message UserDevice {
+    required User user = 1;
+    repeated Device device = 2;
+}

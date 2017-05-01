@@ -1,12 +1,17 @@
 package gcanadas.com.myplanner.api;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.util.List;
 
+import gcanadas.com.myplanner.models.Device;
 import gcanadas.com.myplanner.models.User;
 import gcanadas.com.myplanner.models.UserDevice;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -15,6 +20,10 @@ import retrofit2.http.Path;
 
 public interface UserService {
 
-    @GET("users/{user}/repos")
+    @GET("userdevices/{username}")
     Call<UserDevice> listUserDevices(@Path("username") String username);
+
+    @POST("userdevices")
+    ResponseBody insertUserDevice(@Body UserDevice userDevice);
+
 }

@@ -33,10 +33,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import gcanadas.com.myplanner.R;
+import pushnotifications.MyPlanner_FirebaseInstanceIdService;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -366,7 +369,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-
+                updateSessionData(mEmail);
+                String token = FirebaseInstanceId.getInstance().getToken();
+                MyPlanner_FirebaseInstanceIdService pushService = new MyPlanner_FirebaseInstanceIdService();
+                pushService.sendRegistrationToServer(token, mEmail);
                 goToMainActivity(mContext);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
