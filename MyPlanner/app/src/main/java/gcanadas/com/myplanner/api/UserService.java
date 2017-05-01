@@ -24,6 +24,6 @@ public interface UserService {
     Call<UserDevice> listUserDevices(@Path("username") String username);
 
     @POST("userdevices")
-    ResponseBody insertUserDevice(@Body UserDevice userDevice);
+    Call<ResponseBody> insertUserDevice(@Body UserDevice userDevice);
 
 }

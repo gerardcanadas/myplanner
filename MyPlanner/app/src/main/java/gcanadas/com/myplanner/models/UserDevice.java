@@ -1,17 +1,21 @@
 package gcanadas.com.myplanner.models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class UserDevice {
 
+    @SerializedName("user")
     private User User;
+    @SerializedName("devices")
     private List<Device> Devices;
 
-    public gcanadas.com.myplanner.models.User getUser() {
+    public User getUser() {
         return User;
     }
 
-    public void setUser(gcanadas.com.myplanner.models.User user) {
+    public void setUser(User user) {
         User = user;
     }
 

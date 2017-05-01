@@ -14,6 +14,7 @@ import gcanadas.com.myplanner.api.RestServiceProvider;
 import gcanadas.com.myplanner.models.Device;
 import gcanadas.com.myplanner.models.User;
 import gcanadas.com.myplanner.models.UserDevice;
+import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 import static android.content.ContentValues.TAG;

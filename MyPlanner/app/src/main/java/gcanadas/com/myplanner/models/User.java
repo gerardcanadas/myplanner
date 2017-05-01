@@ -1,11 +1,16 @@
 package gcanadas.com.myplanner.models;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by gerard on 5/1/17.
  */
 
 public class User {
+    @SerializedName("id")
     private int Id;
+
+    @SerializedName("username")
     private String Username;
 
     public int getId() {

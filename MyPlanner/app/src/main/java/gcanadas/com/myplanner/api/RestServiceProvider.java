@@ -1,6 +1,9 @@
 package gcanadas.com.myplanner.api;
 
-import retrofit2.ProtoConverterFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 
 /**
@@ -15,9 +18,12 @@ public class RestServiceProvider {
 
     protected RestServiceProvider() {
         // Exists only to defeat instantiation.
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
+                .create();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://localhost:5000/api/")
-                .addConverterFactory(ProtoConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
 
         userService = retrofit.create(UserService.class);
