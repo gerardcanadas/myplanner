@@ -1,16 +1,26 @@
 package pushnotifications;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.google.gson.Gson;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.msebera.android.httpclient.entity.mime.Header;
 import gcanadas.com.myplanner.api.RestServiceProvider;
+import gcanadas.com.myplanner.api.UserService;
 import gcanadas.com.myplanner.models.Device;
 import gcanadas.com.myplanner.models.User;
 import gcanadas.com.myplanner.models.UserDevice;
@@ -40,15 +50,37 @@ public class MyPlanner_FirebaseInstanceIdService extends FirebaseInstanceIdServi
     }
 
     public void sendRegistrationToServer(String refreshedToken, String username) {
-        User user = new User();
-        user.setUsername(username);
-        List<Device> devicesList = new ArrayList<>();
-        Device currentDevice = new Device();
-        currentDevice.setDeviceId(refreshedToken);
-        devicesList.add(currentDevice);
-        UserDevice udev = new UserDevice();
-        udev.setUser(user);
-        udev.setDevices(devicesList);
-        RestServiceProvider.getInstance().userService.insertUserDevice(udev);
+        try {
+            if (username != "") {
+                User user = new User();
+                user.setUsername(username);
+                List<Device> devicesList = new ArrayList<>();
+                Device currentDevice = new Device();
+                currentDevice.setDeviceId(refreshedToken);
+                devicesList.add(currentDevice);
+                UserDevice udev = new UserDevice();
+                udev.setUser(user);
+                udev.setDevices(devicesList);
+                UserRepositoryTask userRepositoryTask = new UserRepositoryTask();
+                userRepositoryTask.execute(udev);
+            }
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    class UserRepositoryTask extends AsyncTask<UserDevice, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(UserDevice... params) {
+            UserService userService = new UserService();
+            try {
+                userService.insertUserDevice(params[0]);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
     }
 }

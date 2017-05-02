@@ -17,8 +17,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 import gcanadas.com.myplanner.R;
+import gcanadas.com.myplanner.api.RestServiceProvider;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +44,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                LogFcmToken();
+                //LogFcmToken();
+                makeApiCall();
             }
         });
 
@@ -117,6 +124,21 @@ public class MainActivity extends AppCompatActivity
         // Log and toast
 //        String msg = getString(R.string.msg_token_fmt, token);
 //        Log.d(TAG, msg);
-        Toast.makeText(MainActivity.this, "FCM TOKEN: " + token, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "FCM TOKEN: " + token, Toast.LENGTH_LONG).show();
+    }
+
+    private void makeApiCall() {
+        RestServiceProvider.get("userdevices/testUser", null, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                if (statusCode == 200) //OK
+                    Toast.makeText(MainActivity.this, "response: " + response, Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                if (statusCode == 200) //OK
+                    Toast.makeText(MainActivity.this, "response: " + response, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
