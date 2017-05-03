@@ -1,4 +1,4 @@
-package pushnotifications;
+package gcanadas.com.myplanner.pushnotifications;
 
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -7,25 +7,16 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.gson.Gson;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.entity.mime.Header;
-import gcanadas.com.myplanner.api.RestServiceProvider;
 import gcanadas.com.myplanner.api.UserService;
 import gcanadas.com.myplanner.models.Device;
 import gcanadas.com.myplanner.models.User;
 import gcanadas.com.myplanner.models.UserDevice;
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 
 import static android.content.ContentValues.TAG;
 

@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import gcanadas.com.myplanner.R;
-import pushnotifications.MyPlanner_FirebaseInstanceIdService;
+import gcanadas.com.myplanner.pushnotifications.MyPlanner_FirebaseInstanceIdService;
 
 import static android.Manifest.permission.READ_CONTACTS;
 

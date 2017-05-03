@@ -1,19 +1,12 @@
 package gcanadas.com.myplanner.api;
 
 import android.content.Context;
-import android.os.Looper;
-import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import cz.msebera.android.httpclient.HttpEntity;
-import gcanadas.com.myplanner.activities.MainActivity;
-import retrofit2.GsonConverterFactory;
-import retrofit2.Retrofit;
 
 /**
  * Created by gerard on 5/1/17.
@@ -34,7 +27,7 @@ public class RestServiceProvider {
         return instance;
     }
 
-    private static final String BASE_URL = "http://localhost:5000/api/";
+    private static final String BASE_URL = "http://192.168.204.106:8081/api/";
 
     private static AsyncHttpClient client = new AsyncHttpClient();
 
@@ -47,7 +40,7 @@ public class RestServiceProvider {
     }
 
     public static void post(Context context, String url, HttpEntity httpEntity, AsyncHttpResponseHandler responseHandler) {
-//        client.post(context, getAbsoluteUrl(url), httpEntity, "application/json", responseHandler);
+        client.post(context, getAbsoluteUrl(url), httpEntity, "application/json", responseHandler);
     }
 
     public static void getByUrl(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

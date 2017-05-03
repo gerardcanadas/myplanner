@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void makeApiCall() {
-        RestServiceProvider.get("userdevices/testUser", null, new JsonHttpResponseHandler() {
+        RestServiceProvider.get("userdevices/gerard.canadas@gmail.com", null, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 if (statusCode == 200) //OK
