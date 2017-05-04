@@ -1,8 +1,11 @@
 package gcanadas.com.myplanner.activities;
 
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.util.AttributeSet;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,12 +15,64 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.appeaser.sublimepickerlibrary.SublimePicker;
+import com.appeaser.sublimepickerlibrary.datepicker.SelectedDate;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeListenerAdapter;
+import com.appeaser.sublimepickerlibrary.helpers.SublimeOptions;
+import com.appeaser.sublimepickerlibrary.recurrencepicker.SublimeRecurrencePicker;
 
 import gcanadas.com.myplanner.R;
+import gcanadas.com.myplanner.fragments.TaskSchedulerFragment;
 import gcanadas.com.myplanner.notifications.NotificationProvider;
 
 public class AlertsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // Chosen values
+    SelectedDate mSelectedDate;
+    int mHour, mMinute;
+    String mRecurrenceOption, mRecurrenceRule;
+
+    TaskSchedulerFragment.Callback mFragmentCallback = new TaskSchedulerFragment.Callback() {
+        @Override
+        public void onCancelled() {
+            //rlDateTimeRecurrenceInfo.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onDateTimeRecurrenceSet(SelectedDate selectedDate,
+                                            int hourOfDay, int minute,
+                                            SublimeRecurrencePicker.RecurrenceOption recurrenceOption,
+                                            String recurrenceRule) {
+
+            mSelectedDate = selectedDate;
+            mHour = hourOfDay;
+            mMinute = minute;
+            mRecurrenceOption = recurrenceOption != null ?
+                    recurrenceOption.name() : "n/a";
+            mRecurrenceRule = recurrenceRule != null ?
+                    recurrenceRule : "n/a";
+
+            TextView txt1 = (TextView) findViewById(R.id.txt1);
+            txt1.setText(mRecurrenceRule);
+
+            TextView txt2 = (TextView) findViewById(R.id.txt2);
+            txt2.setText(mRecurrenceOption);
+
+//            updateInfoView();
+//
+//            svMainContainer.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    svMainContainer.scrollTo(svMainContainer.getScrollX(),
+//                            cbAllowDateRangeSelection.getBottom());
+//                }
+//            });
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +84,32 @@ public class AlertsActivity extends AppCompatActivity
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Mira la notificación", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(final View view) {
+//                Snackbar.make(view, "Mira la notificación", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                // DialogFragment to host SublimePicker
+                TaskSchedulerFragment pickerFrag = new TaskSchedulerFragment();
+                pickerFrag.setCallback(mFragmentCallback);
 
+                // Options
+//                Pair<Boolean, SublimeOptions> optionsPair = getOptions();
+//
+//                if (!optionsPair.first) { // If options are not valid
+//                    Toast.makeText(Sampler.this, "No pickers activated",
+//                            Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+
+                // Valid options
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("SUBLIME_PICKER", null);
+                pickerFrag.setArguments(bundle);
+
+                pickerFrag.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+                pickerFrag.show(getSupportFragmentManager(), "TASK_SCHEDULER");
             }
         });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
