@@ -25,6 +25,7 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 import gcanadas.com.myplanner.R;
 import gcanadas.com.myplanner.api.RestServiceProvider;
+import gcanadas.com.myplanner.notifications.NotificationProvider;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //LogFcmToken();
-                makeApiCall();
+                //makeApiCall();
+                NotificationProvider.getInstance().showNotification(getApplicationContext(), AlertsActivity.class, "Hola zumo!", "Te toca ejercicio zumo!");
             }
         });
 
