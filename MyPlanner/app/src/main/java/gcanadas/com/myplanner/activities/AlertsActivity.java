@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -56,11 +57,16 @@ public class AlertsActivity extends AppCompatActivity
             mRecurrenceRule = recurrenceRule != null ?
                     recurrenceRule : "n/a";
 
+            Log.i("REC_PICKER", "Selected date: " + selectedDate);
+            Log.i("REC_PICKER", "Hour and minute: " + mRecurrenceRule + ":" + minute);
+
             TextView txt1 = (TextView) findViewById(R.id.txt1);
             txt1.setText(mRecurrenceRule);
+            Log.i("REC_PICKER", "Recurrence rule: " + mRecurrenceRule);
 
             TextView txt2 = (TextView) findViewById(R.id.txt2);
             txt2.setText(mRecurrenceOption);
+            Log.i("REC_PICKER", "Recurrence option: " + mRecurrenceOption);
 
 //            updateInfoView();
 //

@@ -37,5 +37,5 @@
         android:id="@+id/txt3" />
 
     </LinearLayout>
-    
+
 </android.support.constraint.ConstraintLayout>
