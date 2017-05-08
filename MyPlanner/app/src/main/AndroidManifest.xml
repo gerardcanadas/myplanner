@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <!-- [START gcm_permission] -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
@@ -24,11 +23,6 @@
         <activity
             android:name=".activities.LoginActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activities.MainActivity"
@@ -39,17 +33,25 @@
             android:label="@string/title_activity_alerts"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service android:name="gcanadas.com.myplanner.pushnotifications.MyPlanner_FirebaseInstanceIdService">
+        <service android:name=".pushnotifications.MyPlanner_FirebaseInstanceIdService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name="gcanadas.com.myplanner.pushnotifications.MyPlanner_FirebaseMessagingService">
+        <service android:name=".pushnotifications.MyPlanner_FirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activities.SignInActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
